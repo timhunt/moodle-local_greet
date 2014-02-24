@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2011102900;
+$plugin->version   = 2014022400;
 $plugin->requires  = 2011102700;
 $plugin->cron      = 0;
 $plugin->component = 'local_greet';

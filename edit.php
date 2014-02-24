@@ -42,7 +42,7 @@ $PAGE->set_title(get_string('editgreeting', 'local_greet'));
 $mform = new local_greet_edit_form();
 
 if ($id) {
-    $mform->set_data($DB->get_record('local_greet_greeting',
+    $mform->set_data($DB->get_record('local_greet_greetings',
             array('id' => $id), '*', MUST_EXIST));
 }
 
@@ -51,9 +51,9 @@ if ($mform->is_cancelled()) {
 
 } else if ($data = $mform->get_data()) {
     if ($id) {
-        $DB->update_record($data);
+        $DB->update_record('local_greet_greetings', $data);
     } else {
-        $data->id = $DB->insert_record($data);
+        $data->id = $DB->insert_record('local_greet_greetings', $data);
     }
 
     redirect(new moodle_url('/local/greet/index.php', array('name' => $data->name)));
