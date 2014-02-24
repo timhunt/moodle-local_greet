@@ -59,8 +59,11 @@ if ($standardgreetings) {
                 format_string($data->name));
         $edit = $OUTPUT->action_icon(
                 new moodle_url('/local/greet/edit.php', array('id' => $data->id)),
-                new pix_icon('i/edit', get_string('edit')));
-        echo html_writer::tag('li', "{$link} {$edit}");
+                new pix_icon('t/edit', get_string('edit')));
+        $delete = $OUTPUT->action_icon(
+                new moodle_url('/local/greet/delete.php', array('id' => $data->id)),
+                new pix_icon('t/delete', get_string('delete')));
+        echo html_writer::tag('li', "{$link} {$edit} {$delete}");
     }
     echo html_writer::end_tag('ul');
 }

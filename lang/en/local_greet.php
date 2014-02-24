@@ -23,6 +23,8 @@
  */
 
 $string['addstandardgreeting'] = 'Add standard greeting';
+$string['areyousure'] = 'Are you sure you wish to delete this standard greeting?';
+$string['deletegreeting'] = 'Delete standard greeting';
 $string['editgreeting'] = 'Edit greeting';
 $string['greet'] = 'Hello, {$a}!';
 $string['greet:begreeted'] = 'Be greeted by the hello world example';

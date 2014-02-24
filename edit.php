@@ -31,9 +31,6 @@ require_login();
 $context = context_system::instance();
 require_capability('local/greet:begreeted', $context);
 
-add_to_log(SITEID, 'local_greet', 'editgreeting',
-        'local/greet/edit.php?id=' . $id);
-
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/greet/edit.php'),
         array('id' => $id));
@@ -55,6 +52,9 @@ if ($mform->is_cancelled()) {
     } else {
         $data->id = $DB->insert_record('local_greet_greetings', $data);
     }
+
+    add_to_log(SITEID, 'local_greet', 'editgreeting',
+            'local/greet/edit.php?id=' . $data->id);
 
     redirect(new moodle_url('/local/greet/index.php', array('name' => $data->name)));
 }
