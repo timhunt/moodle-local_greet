@@ -35,6 +35,8 @@ if (!$name) {
     $name = fullname($USER);
 }
 
+$standardgreetings = $DB->get_records('local_greet_greetings', array(), 'name');
+
 add_to_log(SITEID, 'local_greet', 'begreeted',
         'local/greet/index.php?name=' . urlencode($name));
 
@@ -49,6 +51,19 @@ echo $OUTPUT->box(get_string('greet', 'local_greet',
 
 echo $OUTPUT->box_start();
 echo $OUTPUT->heading(get_string('standardgreetings', 'local_greet'));
+if ($standardgreetings) {
+    echo html_writer::start_tag('ul');
+    foreach ($standardgreetings as $data) {
+        $link = html_writer::link(
+                new moodle_url('/local/greet/index.php', array('name' => $data->name)),
+                format_string($data->name));
+        $edit = $OUTPUT->action_icon(
+                new moodle_url('/local/greet/edit.php', array('id' => $data->id)),
+                new pix_icon('i/edit', get_string('edit')));
+        echo html_writer::tag('li', "{$link} {$edit}");
+    }
+    echo html_writer::end_tag('ul');
+}
 echo html_writer::link(new moodle_url('/local/greet/edit.php'),
         get_string('addstandardgreeting', 'local_greet'));
 echo $OUTPUT->box_end();
