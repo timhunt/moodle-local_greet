@@ -15,17 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language strings for the example Moodle script.
+ * Form for editing a standard greeting.
  *
  * @package   local_greet
  * @copyright 2014 Tim Hunt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['addstandardgreeting'] = 'Add standard greeting';
-$string['editgreeting'] = 'Edit greeting';
-$string['greet'] = 'Hello, {$a}!';
-$string['greet:begreeted'] = 'Be greeted by the hello world example';
-$string['pluginname'] = 'Hello world example';
-$string['standardgreetings'] = 'Standard greetings';
-$string['welcome'] = 'Welcome';
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/formslib.php');
+
+
+/**
+ * Form for editing a standard greeting.
+ *
+ * @copyright 2014 Tim Hunt
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class local_greet_edit_form extends moodleform {
+    protected function definition() {
+        $mform = $this->_form;
+
+        $mform->addElement('hidden', 'id', 0);
+        $mform->setType('id', PARAM_INT);
+
+        $mform->addElement('text', 'name', get_string('name'), array('size' => '64'));
+        $mform->setType('name', PARAM_TEXT);
+
+        $this->add_action_buttons();
+    }
+}

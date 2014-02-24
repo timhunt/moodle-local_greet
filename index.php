@@ -24,26 +24,33 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(__FILE__) . '/../../config.php');        // 1
+require_once(dirname(__FILE__) . '/../../config.php');
 
-require_login();                                              // 2
-$context = context_system::instance();                        // 3
-require_capability('local/greet:begreeted', $context);        // 4
+require_login();
+$context = context_system::instance();
+require_capability('local/greet:begreeted', $context);
 
-$name = optional_param('name', '', PARAM_TEXT);               // 5
+$name = optional_param('name', '', PARAM_TEXT);
 if (!$name) {
-    $name = fullname($USER);                                  // 6
+    $name = fullname($USER);
 }
 
 add_to_log(SITEID, 'local_greet', 'begreeted',
-        'local/greet/index.php?name=' . urlencode($name));    // 7
+        'local/greet/index.php?name=' . urlencode($name));
 
-$PAGE->set_context($context);                                 // 8
+$PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/greet/index.php'),
-        array('name' => $name));                              // 9
-$PAGE->set_title(get_string('welcome', 'local_greet'));       // 10
+        array('name' => $name));
+$PAGE->set_title(get_string('welcome', 'local_greet'));
 
-echo $OUTPUT->header();                                       // 11
+echo $OUTPUT->header();
 echo $OUTPUT->box(get_string('greet', 'local_greet',
-        format_string($name)));                               // 12
-echo $OUTPUT->footer();                                       // 13
+        format_string($name)));
+
+echo $OUTPUT->box_start();
+echo $OUTPUT->heading(get_string('standardgreetings', 'local_greet'));
+echo html_writer::link(new moodle_url('/local/greet/edit.php'),
+        get_string('addstandardgreeting', 'local_greet'));
+echo $OUTPUT->box_end();
+
+echo $OUTPUT->footer();
